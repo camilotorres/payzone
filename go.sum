@@ -1,0 +1,8 @@
+github.com/mediocregopher/radix.v2 v0.0.0-20181115013041-b67df6e626f9/go.mod h1:fLRUbhbSd5Px2yKUaGYYPltlyxi1guJz1vCmo1RQL50=
+github.com/moov-io/iso8583 v0.16.0 h1:OmidV4ZBuL3kwOUHQ1NBx3D8VzslTYmmEF4eAN4S0jU=
+github.com/moov-io/iso8583 v0.16.0/go.mod h1:8gUe6kTGBWM8iEs1Sqh+wC4w7+8nkT41Db9xUElTkdM=
+github.com/yerden/go-util v1.1.4 h1:jd8JyjLHzpEs1ZZQzDkfRgosDtXp/BtIAV1kpNjVTtw=
+github.com/yerden/go-util v1.1.4/go.mod h1:3HeLrvtkEeAv67ARostM9Yn0DcAVqgJ3uAiCuywEEXk=
+golang.org/x/sys v0.0.0-20190913121621-c3b328c6e5a7/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
+golang.org/x/text v0.9.0 h1:2sjJmO8cDvYveuX97RDLsxlyUxLl+GHoLxBiRdHllBE=
+golang.org/x/text v0.9.0/go.mod h1:e1OnstbJyHTd6l/uOt8jFFHp6TRDWZR/bV3emEE/zU8=

@@ -14,6 +14,7 @@ import (
 	"github.com/moov-io/iso8583/field"
 	"github.com/moov-io/iso8583/padding"
 	"github.com/moov-io/iso8583/prefix"
+	"github.com/moov-io/iso8583/specs"
 )
 
 type Transaction struct {
@@ -28,6 +29,36 @@ type Transaction struct {
 }
 
 func HandleRoot(w http.ResponseWriter, r *http.Request) {
+
+	isomessage := iso8583.NewMessage(specs.Spec87ASCII)
+
+	isomessage.MTI("0100")
+	isomessage.Field(39, "00")
+	isomessage.Field(3, "003000")
+	isomessage.Field(2, "4919108000061104")
+
+	bitmapInicial := field.NewBitmap(isomessage.Bitmap().Spec())
+
+	fmt.Printf("BITMAP01:%v\n", bitmapInicial)
+
+	bitmapInicial.Set(15)
+	bitmapInicial.Set(20)
+	bitmapInicial.Set(30)
+	bitmapInicial.Set(39)
+
+	data, _ := bitmapInicial.String()
+
+	fmt.Printf("BITMAP02:%v\n", data)
+
+	read, _ := bitmapInicial.Unpack([]byte("004000000000000000000000000000000000000000000000"))
+
+	fmt.Printf("BITMAP03:%v\n", read)
+
+	message1 := iso8583.NewMessage(specs.Spec87ASCII)
+	rawMsg := []byte("020042000400000000021612345678901234560609173030123456789ABC1000123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789")
+	message1.Unpack([]byte(rawMsg))
+	s, err := message1.GetString(2)
+	fmt.Printf("BITMAP04:%v\n", s)
 
 	spec := &iso8583.MessageSpec{
 
@@ -73,9 +104,9 @@ func HandleRoot(w http.ResponseWriter, r *http.Request) {
 	// set message type indicator at field 0
 	message.MTI("0100")
 	// set all message fields you need as strings
-	err := message.Field(2, "4242424242424242")
+	err1 := message.Field(2, "4242424242424242")
 
-	if err != nil {
+	if err1 != nil {
 		fmt.Fprintf(w, "error con specificacion ISO: %v", err)
 		return
 	}

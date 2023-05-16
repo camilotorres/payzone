@@ -9,3 +9,7 @@ func main() {
 	server.Handle("POST", "/trx", TrxPostRequest)
 	server.Listen()
 }
+
+func Add(a, b int) int {
+	return a + b
+}

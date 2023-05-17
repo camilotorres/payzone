@@ -2,6 +2,7 @@ package iso8583
 
 import (
 	"encoding/json"
+	"fmt"
 	"reflect"
 	"testing"
 	"time"
@@ -14,6 +15,14 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
+
+
+func BitMapToSpec(t *testing.T) {
+	binaryBitmap := "11111010010110000000000010000000001011000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000"
+	hexBitmap := "FA5800802C0001000000000000000000"
+	fmt.Println(binaryBitmap + " " + hexBitmap)
+
+}
 
 func TestMessage(t *testing.T) {
 	spec := &MessageSpec{
@@ -1503,4 +1512,7 @@ func FuzzUnpack(f *testing.F) {
 		// we only care when it panics
 		message.Unpack(orig)
 	})
+
+
+
 }

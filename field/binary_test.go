@@ -46,15 +46,21 @@ func TestBinaryField(t *testing.T) {
 
 	r := Chunks("0111001000100100010001001000000000101000110000001000000000000000", 4)
 
-	for i := len(r) - 1; i >= 0; i-- {
+	fmt.Printf("PREPARAMOS EL ARRAY CON LOS BYTES: %s \n", r)
+
+	var total string = " "
+	for i := 0; i < len(r); i++ {
 		println(r[i])
-		println(ConvertInt(r[i], 2, 16))
+		resultado, _ := ConvertInt(r[i], 2, 16)
+		total = total + resultado
 	}
 
-	binaryBitmap := "1011110111"
-	// hexBitmap := "FA5800802C0001000000000000000000"
-	v, errores := ConvertInt(binaryBitmap, 2, 16)
-	fmt.Printf("Convertimos Bits a Hexa: %s, error %s /n", v, errores)
+	println(total)
+
+	// binaryBitmap := "0010"
+	// // hexBitmap := "FA5800802C0001000000000000000000"
+	// v, errores := ConvertInt(binaryBitmap, 2, 16)
+	// fmt.Printf("Convertimos Bits a Hexa: %s, error %s \n", v, errores)
 
 	spec := &Spec{
 		Length:      10,

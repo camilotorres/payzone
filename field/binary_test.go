@@ -37,7 +37,7 @@ func Chunks(s string, chunkSize int) []string {
 func ConvertInt(val string, base, toBase int) (string, error) {
 	i, err := strconv.ParseInt(val, base, 64)
 	if err != nil {
-		return "ERROR PUES", err
+		return "ERROR PUES NADa", err
 	}
 	return strconv.FormatInt(i, toBase), nil
 }

@@ -33,26 +33,36 @@ func HandleRoot(w http.ResponseWriter, r *http.Request) {
 	isomessage := iso8583.NewMessage(specs.Spec87ASCII)
 
 	isomessage.MTI("0100")
-	isomessage.Field(39, "00")
-	isomessage.Field(3, "003000")
 	isomessage.Field(2, "4919108000061104")
+	isomessage.Field(3, "003000")
+	isomessage.Field(39, "00")
 
-	bitmapInicial := field.NewBitmap(isomessage.Bitmap().Spec())
+	// bitmapInicial := field.NewBitmap(isomessage.Bitmap().Spec())
 
-	fmt.Printf("BITMAP01:%v\n", bitmapInicial)
+	// bitmapInicial.Set(15)
 
-	bitmapInicial.Set(15)
-	bitmapInicial.Set(20)
-	bitmapInicial.Set(30)
-	bitmapInicial.Set(39)
+	rawMessage, err := isomessage.Pack()
 
-	data, _ := bitmapInicial.String()
+	if err != nil {
+		fmt.Fprintf(w, "error con specificacion ISO: %v", err)
+		return
+	}
 
-	fmt.Printf("BITMAP02:%v\n", data)
+	// bitmap, err := isomessage.Bitmap().String()
 
-	read, _ := bitmapInicial.Unpack([]byte("004000000000000000000000000000000000000000000000"))
+	strBitmap, _ := isomessage.Bitmap().String()
 
-	fmt.Printf("BITMAP03:%v\n", read)
+	fmt.Printf("rawMessage:%v\n", rawMessage)
+
+	fmt.Printf("BITMAP01:%v\n", strBitmap)
+
+	// data, _ := bitmapInicial.String()
+
+	// fmt.Printf("BITMAP02:%v\n", data)
+
+	// read, _ := bitmapInicial.Unpack([]byte("004000000000000000000000000000000000000000000000"))
+
+	// fmt.Printf("BITMAP03:%v\n", read)
 
 	message1 := iso8583.NewMessage(specs.Spec87ASCII)
 	rawMsg := []byte("020042000400000000021612345678901234560609173030123456789ABC1000123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789")
@@ -129,7 +139,7 @@ func HandleRoot(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// generate binary representation of the message into rawMessage
-	rawMessage, err := message.Pack()
+	rawMessage2, err := message.Pack()
 
 	if err != nil {
 		fmt.Fprintf(w, "error con specificacion ISO: %v", err)
@@ -151,7 +161,7 @@ func HandleRoot(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Printf("JSON FORMAT %v\n", jsonMessage)
 	fmt.Printf("BITMAP: %v\n", bitmap)
-	fmt.Println(rawMessage)
+	fmt.Println(rawMessage2)
 	// now you can send rawMessage over the wire
 
 	iso8583.Describe(message, os.Stdout)
